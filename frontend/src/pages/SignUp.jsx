@@ -8,7 +8,7 @@ import axios from "axios";
 const SignUp = () => {
 
   const [showPassword, setShowPassword] = useState(false);
-  const { serverUrl } = useContext(userDataContext);
+  const { serverUrl,userData, setUserData} = useContext(userDataContext);
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -25,11 +25,15 @@ const SignUp = () => {
         name, email, password
       }, {
         withCredentials: true
-      });
+      })
       console.log("✅ Signup Success:", result.data);
+      setUserData(result.data)
+      setLoading(false)
+      navigate("/customize")
       // Optionally redirect or show message
     } catch (error) {
-      console.error("❌ Signup Failed:", error);
+      console.error("❌ Signup Failed:", error)
+      setUserData(null)
       setLoading(false)
       setErr(error.response.data.message)
     }
