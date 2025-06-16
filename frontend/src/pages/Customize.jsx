@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import Card from '../components/Card'
 import image1 from '../assets/image1.webp'
 import image2 from '../assets/image2.jpg'
@@ -8,10 +8,20 @@ import image5 from '../assets/image5.avif'
 import image6 from '../assets/image6.jpg'
 import frontimage from '../assets/frontimage.jpg'
 import { MdOutlineUploadFile } from "react-icons/md";
+import UserContext, { userDataContext } from '../context/UserContext'
+import { useNavigate } from 'react-router-dom'
 const Customize = () => {
-  const [frontendImage, setfrontendImage]=useState(null)
-  const [BackendImage, setBackendImage]=useState(null)
+  const {
+    serverUrl, userData, setUserData, frontendImage, setfrontendImage,
+    BackendImage, setBackendImage, selectedImage, setSelectedImage
+  } = useContext(userDataContext)
   const inputImage=useRef()
+  const handleImage=(e)=>{
+   const file = e.target.files[0]
+   setBackendImage(file)
+   setfrontendImage(URL.createObjectURL(file))
+  }
+  const navigate = useNavigate()
   return (
     
     <div className='w-full h-[100vh] bg-gradient-to-t from-[black] 
@@ -28,17 +38,23 @@ const Customize = () => {
       <Card image={frontimage}/>
       <Card image={image5}/>
       <Card image={image6}/>
-          <div className='w-[70px] h-[140px] lg:w-[150px] lg:h-[250px] bg-[black] border-2 border-[blue] rounded-2xl
-     overflow-hidden hover:shadow-2xl hover:shadow-blue-950 cursor-pointer
-     hover:border-4 hover:border-white flex items-center justify-center' onClick={
-      ()=>inputImage.current.click()
-     }>
-    <MdOutlineUploadFile className='text-white w-[25px] h-[25px]'/>
+          <div   className={`w-[70px] h-[140px] lg:w-[150px] lg:h-[250px] bg-[black] border-2 border-[blue] rounded-2xl
+    overflow-hidden hover:shadow-2xl hover:shadow-blue-950 cursor-pointer
+    hover:border-4 hover:border-white flex items-center justify-center
+    ${selectedImage == "input" ? " border-4 border-white shadow-2xl shadow-blue-950" : ""}`}
+     onClick={
+      ()=>{ inputImage.current.click()
+        setSelectedImage("input")
+     }}>
+   {!frontendImage && <MdOutlineUploadFile className='text-white w-[25px] h-[25px]'/>}
+   {frontendImage && <img src={frontendImage} className='h-full object-cover'></img>}
     </div>
-    <input type="file" accept='image/*' ref={inputImage} hidden/>
+    <input type="file" accept='image/*' ref={inputImage} hidden 
+    onChange={handleImage}/>
       </div>
-      <button className='min-w-[150px] h-[60px] bg-white rounded-full text-black font-semibold
-        text-[19px] mt-[30px]'>Next</button>
+      {selectedImage && <button className='min-w-[150px] h-[60px] bg-white rounded-full text-black font-semibold
+        text-[19px] mt-[30px] cursor-pointer' onClick={()=>navigate("/customize2")}>Next</button>}
+      
     </div>
   )
 }
