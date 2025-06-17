@@ -10,6 +10,7 @@ import frontimage from '../assets/frontimage.jpg'
 import { MdOutlineUploadFile } from "react-icons/md";
 import UserContext, { userDataContext } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
+import { IoMdArrowRoundBack } from "react-icons/io";
 const Customize = () => {
   const {
     serverUrl, userData, setUserData, frontendImage, setfrontendImage,
@@ -25,7 +26,9 @@ const Customize = () => {
   return (
     
     <div className='w-full h-[100vh] bg-gradient-to-t from-[black] 
-    to-[blue] flex justify-center items-center flex-col p-[20px] gap-[20px]'>
+    to-[blue] flex justify-center items-center flex-col p-[20px] gap-[20px] relative'>
+       <IoMdArrowRoundBack className='absolute top-[30px] left-[30px] text-white w-[25px] h-[25px] cursor-pointer'
+              onClick={()=>navigate("/")}/>
        <h1 className='text-white text-center text-[30px]'>Select your <span
        className='text-blue-300'>Assistant Image</span></h1>
       <div className='w-[90%] max-w-[900px] flex justify-center

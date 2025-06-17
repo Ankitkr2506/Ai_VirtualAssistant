@@ -9,6 +9,7 @@ const Customize2 = () => {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const handleUpdateAssistant=async ()=>{
+    setLoading(true)
     try {
         let formData = new FormData()
         formData.append("name", name)
@@ -20,16 +21,20 @@ const Customize2 = () => {
         const result = await axios.post(`${serverUrl}/api/user/update`,
             formData, {withCredentials:true}
         )
+        setLoading(false)
         console.log(result.data)
         setUserData(result.data)
+        navigate("/")
     } catch (error) {
+      setLoading(false)
         console.log(error)
     }
   }
   return (
     <div className='w-full h-[100vh] bg-gradient-to-t from-[black] 
     to-[blue] flex justify-center items-center flex-col p-[20px] gap-[20px] ralative'>
-        <IoMdArrowRoundBack className='absolute top-[30px] left-[30px] text-white w-[25px] h-[25px]'/>
+        <IoMdArrowRoundBack className='absolute top-[30px] left-[30px] text-white w-[25px] h-[25px] cursor-pointer'
+        onClick={()=>navigate("/customize")}/>
       <h1 className='text-white text-center text-[30px]'>Enter your <span
         className='text-blue-300'>Assistant Name</span></h1>
 
