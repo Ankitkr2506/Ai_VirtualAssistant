@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { userDataContext } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Home = () => {
-  const {userData, serverUrl, setUserData}=useContext(userDataContext)
+  const {userData, serverUrl, setUserData, getGeminiResponse}=useContext(userDataContext)
   const navigate = useNavigate()
   const handleLogOut=async()=>{
     try {
@@ -20,6 +20,29 @@ const Home = () => {
       console.log(error)
     }
   }
+
+  //convert speech into text
+  useEffect(()=>{
+
+   const SpeechRecognition=window.SpeechRecognition || window.webkitSpeechRecognition // first one for any browser, second for chrome
+   const recognition=new SpeechRecognition()
+   recognition.continuous=true,
+   recognition.lang='en-US'
+
+   recognition.onresult= async (e)=>{
+    const transcript=e.results[e.results.length-1][0].transcript.trim()
+    console.log("heard : " + transcript)
+if(transcript.toLowerCase().includes(userData.assistantName.toLowerCase())){
+ const data=await getGeminiResponse(transcript)
+ console.log(data)
+}
+
+   }
+   recognition.start()
+
+  },[])
+
+
   return (
     <div className='w-full h-[100vh] bg-gradient-to-t from-[black] 
     to-[blue] flex justify-center items-center flex-col gap-[15px] relative'>
@@ -35,7 +58,7 @@ const Home = () => {
     <img src={userData?.assistantImage} alt='' className='h-full object-cover'/>
 
    </div>
-   <h1 className='text-white font-bold text-[18px]'>I am {userData?.name}</h1>
+   <h1 className='text-white font-bold text-[18px]'>I am {userData?.assistantName}</h1>
     </div>
   )
 }

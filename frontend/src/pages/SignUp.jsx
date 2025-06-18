@@ -83,7 +83,7 @@ const SignUp = () => {
           *{err}
           </p>}
         <button className='min-w-[150px] h-[60px] bg-white rounded-full text-black font-semibold
-        text-[19px] mt-[30px]' disabled={loading}>
+        text-[19px] mt-[30px] cursor-pointer' disabled={loading}>
           {loading ? "loading.." : "SignUp"}
         </button>
 

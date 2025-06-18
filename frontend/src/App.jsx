@@ -12,8 +12,8 @@ const App = () => {
   return (
     <Routes>
        <Route path='/' element={(userData?.assistantImage &&
-       userData?.name) ? <Home/> : <Navigate to ={"/customize"}/>}/>
-      <Route path='/signup' element={!userData ? <SignUp/>:<Navigate to={"/customize"}/>}/>
+       userData?.assistantName) ? <Home/> : <Navigate to ={"/customize"}/>}/>
+      <Route path='/signup' element={!userData ? <SignUp/>:<Navigate to={"/"}/>}/>
       <Route path='/signin' element={!userData ? <SignIn/>:<Navigate to={"/"}/>}/>
       <Route path='/customize' element={userData ? <Customize/>:<Navigate to={
         "/signup"

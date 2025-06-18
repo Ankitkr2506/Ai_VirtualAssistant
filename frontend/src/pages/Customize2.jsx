@@ -5,14 +5,14 @@ import axios from 'axios'
 import { IoMdArrowRoundBack } from "react-icons/io";
 const Customize2 = () => {
   const { userData, BackendImage, selectedImage, serverUrl, setUserData } = useContext(userDataContext)
-  const [name, setName] = useState(userData?.name || "")
+  const [assistantName, setAssistantName] = useState(userData?.assistantName || "")
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const handleUpdateAssistant=async ()=>{
     setLoading(true)
     try {
         let formData = new FormData()
-        formData.append("name", name)
+        formData.append("assistantName", assistantName)
         if(BackendImage){
           formData.append("assistantImage", BackendImage)
         }else{
@@ -44,10 +44,10 @@ const Customize2 = () => {
         className='border-2 w-full h-[60px] border-white bg-transparent outline-none
           text-white placeholder-gray px-[20px] py-[10px] rounded-full text-[18px]'
         required
-        onChange={(e) => setName(e.target.value)}
-        value={name}
+        onChange={(e) => setAssistantName(e.target.value)}
+        value={assistantName}
       />
-      {name &&
+      {assistantName &&
         <button
           className='min-w-[300px] h-[60px] bg-white rounded-full text-black font-semibold
         text-[19px] mt-[30px] cursor-pointer' disabled={loading}

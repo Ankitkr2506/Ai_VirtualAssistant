@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRouter from "./routes/user.routes.js";
+import geminiResponse from "./gemini.js";
 
 
 const app = express();
@@ -23,9 +24,11 @@ const port = process.env.PORT || 5000;
 // Routes
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
-app.get("/", (req, res) => {
-  res.send("✅ Backend is working!");
-});
+// app.get("/", async (req, res) => {
+//   let prompt = req.query.prompt
+//   let data = await geminiResponse(prompt)
+//   res.json(data)
+// })
 
 // Connect DB and start server
 connectDb()
