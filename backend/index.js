@@ -24,11 +24,12 @@ const port = process.env.PORT || 5000;
 // Routes
 app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
-// app.get("/", async (req, res) => {
-//   let prompt = req.query.prompt
-//   let data = await geminiResponse(prompt)
-//   res.json(data)
-// })
+app.get("/", async (req, res) => {
+  
+ res.status(200).json({ message: 'Hello from the backend!' });
+})
+
+
 
 // Connect DB and start server
 connectDb()
