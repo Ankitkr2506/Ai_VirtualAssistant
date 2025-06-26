@@ -11,9 +11,20 @@ import geminiResponse from "./gemini.js";
 
 const app = express();
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://ai-virtual-assistant-blond.vercel.app'
+];
+
 app.use(cors({
-  origin: "https://ai-virtual-assistant-blond.vercel.app", // ✅ Set your frontend origin here
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // if you're using cookies
 }));
 
 app.use(express.json());
