@@ -12,7 +12,7 @@ import geminiResponse from "./gemini.js";
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173", // ✅ Set your frontend origin here
+  origin: "https://ai-virtual-assistant-blond.vercel.app", // ✅ Set your frontend origin here
   credentials: true
 }));
 
