@@ -277,9 +277,10 @@ const Home = () => {
       </div>
 
       <h1 className='text-white font-bold text-[18px]'>I am {userData?.assistantName}</h1>
-      {!isSpeakingRef.current && <img src={AI} alt='' className='w-[200px]' />}
+      {!isSpeakingRef.current && <img src={AI} alt='' className='w-[200px]' /> }
       {isSpeakingRef.current && <img src={voice} alt='' className='w-[200px]' />}
       <h1 className='text-white text-[18px] font-semibold text-wrap'>
+        
         {userText ? userText : aiText ? aiText : null}
       </h1>
     </div>
