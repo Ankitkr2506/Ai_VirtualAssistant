@@ -12,9 +12,12 @@ import geminiResponse from "./gemini.js";
 const app = express();
 
 app.use(cors({
-  origin: "*", // ✅ Set your frontend origin here
+  origin: (origin, callback) => {
+    callback(null, origin); // Reflect the request origin
+  },
   credentials: true
 }));
+
 
 app.use(express.json());
 app.use(cookieParser());
