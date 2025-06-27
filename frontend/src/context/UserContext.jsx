@@ -4,7 +4,7 @@ import React, { createContext, useEffect, useState } from 'react';
 export const userDataContext = createContext();
 
 const UserContext = ({ children }) => {
-  const serverUrl = "http://localhost:8000"
+  const serverUrl = "https://ai-virtual-assistant-gilt.vercel.app"
   const [userData, setUserData] = useState(null)
   const [frontendImage, setfrontendImage]=useState(null)
     const [BackendImage, setBackendImage]=useState(null)
