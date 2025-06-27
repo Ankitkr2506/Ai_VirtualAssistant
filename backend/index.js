@@ -12,7 +12,9 @@ import geminiResponse from "./gemini.js";
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173", // ✅ Set your frontend origin here
+  origin: (origin, callback) => {
+    callback(null, origin); // Reflect the request origin
+  },
   credentials: true
 }));
 
