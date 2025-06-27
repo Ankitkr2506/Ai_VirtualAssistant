@@ -4,7 +4,7 @@ import React, { createContext, useEffect, useState } from 'react';
 export const userDataContext = createContext();
 
 const UserContext = ({ children }) => {
-  const serverUrl = "https://ai-virtual-assistant-a7wsfrjhe-ankit-kumars-projects-ada65449.vercel.app"
+  const serverUrl = "ai-virtual-assistant-git-main-ankit-kumars-projects-ada65449.vercel.app"
   const [userData, setUserData] = useState(null)
   const [frontendImage, setfrontendImage]=useState(null)
     const [BackendImage, setBackendImage]=useState(null)

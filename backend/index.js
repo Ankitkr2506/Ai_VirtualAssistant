@@ -12,7 +12,7 @@ import geminiResponse from "./gemini.js";
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://ai-virtual-assistant-rz7i.vercel.app'],
+  origin: ["http://localhost:5173", "ai-virtual-assistant-git-739c8c-ankit-kumars-projects-ada65449.vercel.app"],
   credentials: true
 }));
 
