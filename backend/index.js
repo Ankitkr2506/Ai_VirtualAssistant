@@ -11,7 +11,7 @@ import geminiResponse from "./gemini.js";
 
 const app = express();
 
-import cors from "cors";
+
 
 // Replace with your actual frontend URL
 const allowedOrigins = [
