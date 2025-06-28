@@ -15,13 +15,27 @@ const app = express();
 
 // Replace with your actual frontend URL
 const allowedOrigins = [
-  "https://ai-virtual-assistant-rz7i.vercel.app"
+  "https://ai-virtual-assistant-rz7i.vercel.app",
+  //"http://localhost:5173"
+  // Add more origins here if needed
 ];
 
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true, // If using cookies or sessions
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+
+    // Allow specific origins (for production security)
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // Allow all origins (during dev/testing – remove in production)
+    return callback(null, true);
+  },
+  credentials: true
 }));
+
 
 
 
