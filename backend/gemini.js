@@ -1,8 +1,15 @@
-import axios from "axios"
+import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();                           // ← make sure env vars load on Vercel
 
-const geminiResponse=async (command, assistantName, userName) =>{
-try {
-    const apiUrl=process.env.GEMINI_API_URL
+const GEMINI_API_URL = process.env.GEMINI_API_URL;
+
+/**
+ * Calls the Gemini model and returns the raw text response.
+ * Returns `null` if anything goes wrong so the controller can handle it.
+ */
+const geminiResponse = async (command, assistantName, userName) => {
+  try {
     const prompt = `You are a virtual assistant named ${assistantName} created by ${userName}.
 You are not Google. You will now behave like a voice-enabled assistant.
 Your task is to understand the user's natural language input and respond with a JSON object like this:
@@ -45,22 +52,28 @@ Important:
 now your userInput- ${command}
 `;
 
-    const result = await axios.post(apiUrl,{
-        "contents": [
+    const { data } = await axios.post(
+      GEMINI_API_URL,
       {
-        "parts": [
+        contents: [
           {
-            "text": prompt
-          }
-        ]
-      }
-    ]
-    })
+            parts: [{ text: prompt }],
+          },
+        ],
+      },
+      { headers: { "Content-Type": "application/json" } }
+    );
 
-    return result.data.candidates[0].content.parts[0].text
-} catch (error) {
-    console.log(error)
-}
-}
+    // Safely dig into the response
+    const text =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
 
-export default geminiResponse
+    return text;
+  } catch (err) {
+    // Log full error from Google if available
+    console.error("❌ Gemini API error:", err.response?.data || err.message);
+    return null;
+  }
+};
+
+export default geminiResponse;
