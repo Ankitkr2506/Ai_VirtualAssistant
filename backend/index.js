@@ -14,7 +14,7 @@ const app = express();
 
 
 // Replace with your actual frontend URL
-const cors = require("cors");
+//const cors = require("cors");
 
 const allowedOriginsRegex = /https:\/\/.*\.vercel\.app$/;
 
